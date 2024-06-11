@@ -43,7 +43,7 @@ export const authOptions: NextAuthOptions={
                         }
 
                     } catch (err:any) {
-                        throw new Error()
+                        throw new Error(err)
                     }
                     credentials               
                 }

@@ -23,7 +23,7 @@ export async function POST(request: Request){
         
         const existingUserByEmail =  await UserModel.findOne({email})
 
-        const verifyCode = Math.floor(10000+Math.random()*900000).toString();
+        let verifyCode = Math.floor(100000 + Math.random()* 900000 ).toString();
         
         if(existingUserByEmail){
             
@@ -38,7 +38,7 @@ export async function POST(request: Request){
                 // Already user exist but he want to change the password
                 existingUserByEmail.password = hashedPassword
                 existingUserByEmail.verifyCode = verifyCode
-                existingUserByEmail.verifyCodeExpriry = new Date(Date.now()+3600000)
+                existingUserByEmail.verifyCodeExpiry = new Date(Date.now()+3600000)
                 await existingUserByEmail.save()
             }
             
@@ -52,7 +52,7 @@ export async function POST(request: Request){
                 email,
                 password: hashedPassword,
                 verifyCode,
-                verifyCodeExpriry: expiryDate,
+                verifyCodeExpiry: expiryDate,
                 isVerified: false,
                 isAcceptingMessage: true,
                 messages: []
